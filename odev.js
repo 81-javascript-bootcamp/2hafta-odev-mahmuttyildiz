@@ -4,17 +4,18 @@
 
 **/
 
-var car = { 
-    registrationNumber: "GA12345",
-    brand: "Toyota",
+const car = {
+  registrationNumber: "GA12345",
+  brand: "Toyota",
 
-    displayDetails: function(){
-        console.log(this.registrationNumber + " " + this.brand);
-    }
+  displayDetails: function () {
+    console.log(this.registrationNumber + " " + this.brand);
+  }
 }
 
-var myCarDetails =  car.displayDetails;
-myCarDetails();
+const myCarDetails = car.displayDetails;
+myCarDetails.call(car)
+
 
 
 /** 
@@ -28,7 +29,10 @@ bosluk icerebilir, ancak bosluk haridcindeki isimler en az 2 karakterden olusmal
 **/
 
 function isValidName(name) {
-  /// your code here
+  if (typeof name !== "string") return false;
+  if (name.length === 0 || name.length === 1 || Number(name) === 0) return false;
+  const splittedArray = name.trim().split(" ")
+  return !splittedArray.some(item => item.length === 1);
 }
 
 
@@ -43,13 +47,20 @@ function isValidName(name) {
 const book = {
   title: 'Brave New World',
   author: 'Aldous Huxley',
+  genre: "dystopian",
+  year: "1932",
+  bookSentence: function () {
+    console.log(`${this.title} was written by ${this.author}. It is a ${this.genre} novel written in ${this.year}.`)
+  }
 }
 
-function summary(genre, year) {
-  console.log(
-    `${this.title} was written by ${this.author}. It is a ${genre} novel written in ${year}.`,
-  )
+const summary = (genre, year) => {
+  const books = book.bookSentence;
+  books.call(book);
+  return books;
 }
+
+summary();
 
 
 
